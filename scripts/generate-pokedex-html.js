@@ -1,7 +1,5 @@
 const fs = require("fs");
 
-const eachCardStart = `<div class="card">`;
-
 const getLines = (rawData) => {
   return rawData.trim().split("\n");
 };
@@ -36,62 +34,48 @@ const generatePokemonCard = (pokemonDetail) => {
     .toString()
     .padStart(3, 0)}.png`;
 
-  return `${eachCardStart}
-<div class="pokemon-image-container">
-<img src="${imgUrl}" class = "pokemon-image"/>
+  return `<div class="card">
+<div class="pokemon-avatar-container">
+<img src="${imgUrl}" class = "pokemon-avatar"/>
 </div>
 <div class="pokemon-name"><p>${nameInCap}</p></div>
-<table class="pokemon-info">
-<tbody>
-<tr>
-<th>Types</th>
-<td>${typesInCaps}</td>
-</tr>
-<tr>
-<th>Weight</th>
-<td>${weight}</td>
-<tr>
-<th>HP</th>
-<td>${hp}</td>
-</tr>
-<tr>
-<th>XP</th>
-<td>${xp}</td>
-</tr>
-<tr>
-<th>Attack</th>
-<td>${attack}</td>
-</tr>
-<tr>
-<th>Defence</th>
-<td>${defence}</td>
-</tr>
-</tbody>
-</table>
+<div class="pokemon-stats">
+  <div class="stat">
+    <div class="stat-name">Types</div>
+    <div class="stat-data"><p>${typesInCaps}</p></div>
+  </div>
+  <div class="stat">
+    <div class="stat-name">Weight</div>
+    <div class="stat-data"><p>${weight}</p></div>
+  </div>
+  <div class="stat">
+    <div class="stat-name">Hp</div>
+    <div class="stat-data"><p>${hp}</p></div>
+  </div>
+  <div class="stat">
+    <div class="stat-name">Xp</div>
+    <div class="stat-data"><p>${xp}</p></div>
+  </div>
+  <div class="stat">
+    <div class="stat-name">Attack</div>
+    <div class="stat-data"><p>${attack}</p></div>
+  </div>
+  <div class="stat">
+    <div class="stat-name">Defence</div>
+    <div class="stat-data"><p>${defence}</p></div>
+  </div>
+</div>
 </div>`;
 };
 
-const genrateCardRow = (section) => {
-  return `<section class="card-row">
-  ${section
-    .map((pokemonDetails) => generatePokemonCard(pokemonDetails))
-    .join("\n")}
-  </section>`;
-};
-
-const chunk = (data, chunkSize) => {
-  if (data.length === 0) return [];
-
-  const chunkedData = data.slice(0, chunkSize);
-  const remining = data.slice(chunkSize);
-  return [chunkedData].concat(chunk(remining, chunkSize));
-};
-
 const main = () => {
-  const rawData = fs.readFileSync("pokemon-data.txt", "utf-8");
-  const sections = chunk(getLines(rawData), 4);
+  const rawData = fs.readFileSync("./resources/pokemon-data.txt", "utf-8");
+  const pokemonDetails = getLines(rawData);
   console.log(
-    sections.reduce((pokeDex, section) => pokeDex + genrateCardRow(section), "")
+    pokemonDetails.reduce(
+      (pokeDex, pokemonDetail) => pokeDex + generatePokemonCard(pokemonDetail),
+      ""
+    )
   );
 };
 
