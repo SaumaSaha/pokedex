@@ -5,7 +5,7 @@ body {
   background: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700524090.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(0.25em);
 }
 
 .page {
@@ -49,6 +49,8 @@ body {
   background-color: hsla(194, 53%, 77%, 0.95);
   border-radius: 0.5em;
   box-shadow: 0.3em 0.3em 0.5em black;
+  transition-duration: 1.2s;
+  transition-timing-function: ease;
 }
 
 .card * {
@@ -61,6 +63,8 @@ body {
   border-radius: 0.5em;
   background-color: rgb(217, 237, 244);
   padding: 0.5em;
+  transition-duration: 2s;
+  transition-timing-function: ease;
 }
 
 .pokemon-avatar {
@@ -89,8 +93,6 @@ body {
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  transition-duration: 1s;
-  transition-timing-function: ease;
   border-bottom: 0.5px dashed black;
 }
 
@@ -106,17 +108,15 @@ body {
 }
 
 .pokedex:has(.card:hover) .card:not(:hover) {
-  filter: blur(5px);
+  filter: blur(0.25em);
 }
 
 .card:hover {
-  background-color: hsl(194, 50%, 61%);
-  box-shadow: 0em 0em 0em black;
-  position: relative;
-  top: 0.1em;
-  left: 0.1em;
+  background-color: hsl(194, 51%, 57%);
+  box-shadow: 0.1em 0.1em 0.5em black;
+  transform: scale(1.04);
 }
 
-.card:hover {
-  
+.card:active .pokemon-avatar-container {
+  transform: rotateY(360deg);
 }
